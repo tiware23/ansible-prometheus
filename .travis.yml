@@ -6,7 +6,7 @@ python:
 services:
   - docker
 before_install:
-  - sudo apt-get update libssl-dev
+  - sudo apt-get update
   - deactivate
   - sudo -H pip install ansible docker molecule testinfra
 script:
