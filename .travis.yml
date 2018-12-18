@@ -5,6 +5,6 @@ services:
   - docker
 before_install:
   - deactivate
-  - sudo -H pip install ansible docker molecule
+  - sudo -H pip install ansible docker molecule testinfra
 script:
   - molecule test

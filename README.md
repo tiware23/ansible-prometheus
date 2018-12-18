@@ -45,7 +45,7 @@ Test Molecule
     $ virtualenv --no-site-packages .venv
     $ source .venv/bin/activate
 
-    $ pip install molecule docker
+    $ pip install molecule docker testinfra
 
 ```
 ```
