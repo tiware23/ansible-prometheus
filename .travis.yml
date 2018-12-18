@@ -8,6 +8,6 @@ services:
 before_install:
   - sudo apt-get update
   - deactivate
-  - sudo -H pip install ansible docker molecule testinfra
+  - sudo -H pip install ansible docker molecule testinfra cryptography
 script:
   - molecule test
