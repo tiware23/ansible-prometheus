@@ -3,6 +3,8 @@ sudo: required
 language: python
 python:
   - "3.6"
+virtualenv:
+  system_site_packages: true
 services:
   - docker
 before_install:
@@ -10,4 +12,6 @@ before_install:
   - deactivate
   - sudo -H pip install ansible docker molecule testinfra cryptography six
 script:
-  - molecule test
+  - virtualenv --no-site-packages .venv
+  - source .venv/bin/activate
+  - cd .venv && molecule test
