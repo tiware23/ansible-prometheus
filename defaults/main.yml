@@ -5,3 +5,4 @@ storage_directory_prometheus: "/var/lib/prometheus"
 static_job: []
 version_prometheus: "2.5.0"
 prometheus_rule: []
+url_prometheus: "https://github.com/prometheus/prometheus/releases/download/v{{ version_prometheus }}/prometheus-{{ version_prometheus }}.linux-amd64.tar.gz"

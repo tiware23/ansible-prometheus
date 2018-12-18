@@ -18,7 +18,7 @@
 
 - name: Download and Unarchive a file
   unarchive:
-    src: https://github.com/prometheus/prometheus/releases/download/v{{ version_prometheus }}/prometheus-{{ version_prometheus }}.linux-amd64.tar.gz
+    src: "{{ url_prometheus }}"
     dest: "/opt"
     remote_src: true
   when: return_output.stdout == "0"
