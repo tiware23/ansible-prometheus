@@ -1,0 +1,10 @@
+---
+sudo: required
+language: python
+services:
+  - docker
+before_install:
+  - deactivate
+  - sudo -H pip install ansible docker molecule
+script:
+  - molecule test
