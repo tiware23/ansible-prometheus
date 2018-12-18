@@ -1,0 +1,7 @@
+---
+# defaults file for prometheus
+home_directory_prometheus: "/opt/prometheus"
+storage_directory_prometheus: "/var/lib/prometheus"
+static_job: []
+version_prometheus: "2.5.0"
+prometheus_rule: []

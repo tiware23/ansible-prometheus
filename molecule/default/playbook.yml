@@ -1,0 +1,24 @@
+---
+- name: Converge
+  hosts: all
+  roles:
+    - role: ansible-prometheus
+  vars:
+    static_job:
+      - name: kafka-exporter
+        nodes: {
+          "localhost:9308"
+        }
+    prometheus_rule:
+      - name: Alert Tasks Nodes
+        prometheus_rules: {
+          "alert.rules_nodes"
+        }
+      - name: Alert Tasks Rules
+        prometheus_rules: {
+          "alert.rules_tasks"
+        }
+      - name: Alert Tasks Service Group
+        prometheus_rules: {
+          "alert.rules_service-groups"
+        }

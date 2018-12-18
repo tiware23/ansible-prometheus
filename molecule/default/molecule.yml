@@ -1,0 +1,34 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+lint:
+  name: yamllint
+platforms:
+  - name: test-molecule-prometheus-centos-01
+    image: centos:7.6.1810
+    privileged: true
+    command: '/lib/systemd/systemd'
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+  - name: test-molecule-prometheus-ubuntu-01
+    image: ubuntu:xenial
+    privileged: true
+    command: '/lib/systemd/systemd'
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+provisioner:
+  name: ansible
+  lint:
+    name: ansible-lint
+    options:
+      exclude:
+        - ../tasks/install.yml
+      x: ["ANSIBLE0011,ANSIBLE0012"]
+scenario:
+  name: default
+verifier:
+  name: testinfra
+  lint:
+    name: flake8

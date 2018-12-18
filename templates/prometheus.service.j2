@@ -1,0 +1,17 @@
+[Service]
+Description=Prometheus service
+After=network.target
+User=prometheus
+Group=prometheus
+PermissionsStartOnly=true
+WorkingDirectory={{ home_directory_prometheus }}
+ExecStartPre=/bin/chown -R prometheus:prometheus {{ home_directory_prometheus }}
+ExecStart={{ home_directory_prometheus }}/prometheus \
+    --config.file {{ home_directory_prometheus }}/prometheus.yml \
+    --storage.tsdb.path {{ storage_directory_prometheus }}
+KillMode=process
+Restart=on-failure
+RestartSec=1min
+
+[Install]
+WantedBy=multi-user.target

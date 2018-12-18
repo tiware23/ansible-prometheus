@@ -1,0 +1,81 @@
+---
+- name: Install network's deps
+  apt:
+    name: iproute2
+    state: present
+  when: ansible_os_family == 'Debian'
+
+- name: Install network's deps
+  yum:
+    name: iproute
+    state: present
+  when: ansible_os_family == 'RedHat'
+
+- name: Register for unarchive
+  shell: "ls -l /opt/prometheus-{{ version_prometheus }}.linux-amd64 | wc -l"
+  register: return_output
+  changed_when: false
+
+- name: Download and Unarchive a file
+  unarchive:
+    src: https://github.com/prometheus/prometheus/releases/download/v{{ version_prometheus }}/prometheus-{{ version_prometheus }}.linux-amd64.tar.gz
+    dest: "/opt"
+    remote_src: true
+  when: return_output.stdout == "0"
+
+- name: Creates Prometheus link Directory.
+  file:
+    src: "/opt/prometheus-{{ version_prometheus }}.linux-amd64"
+    dest: "{{ home_directory_prometheus }}"
+    state: link
+    mode: 0775
+  changed_when: false
+
+- name: Creates User Prometheus
+  user:
+    name: prometheus
+    uid: "1123"
+    shell: /bin/bash
+    home: "{{ home_directory_prometheus }}"
+    move_home: true
+
+- name: Set permission for user prometheus
+  file:
+    path: /opt/prometheus-{{ version_prometheus }}.linux-amd64
+    owner: prometheus
+    group: prometheus
+    recurse: true
+
+- name: Creates Prometheus Base path for metrics storage.
+  file:
+    path: "{{ storage_directory_prometheus }}"
+    state: directory
+    owner: prometheus
+    group: prometheus
+    mode: 0775
+
+- name: Systemd Service
+  template:
+    src: prometheus.service.j2
+    dest: /etc/systemd/system/prometheus.service
+
+- name: Systemd Service
+  template:
+    src: prometheus.service.j2
+    dest: /etc/systemd/system/prometheus.service
+
+- name: Enable and start Prometheus service
+  systemd:
+    name: prometheus
+    enabled: true
+    state: started
+    daemon_reload: true
+
+- name: Install Prometheus yaml file
+  template:
+    src: prometheus.yml.j2
+    dest: "{{ home_directory_prometheus }}/prometheus.yml"
+    owner: prometheus
+    group: prometheus
+  notify:
+    - Restart prometheus service
