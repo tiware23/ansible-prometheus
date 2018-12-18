@@ -36,7 +36,7 @@ galaxy_info:
   platforms:
     - name: Centos
       versions:
-        - 7.6
+        - all
     - name: Ubuntu
       versions:
         - xenial
