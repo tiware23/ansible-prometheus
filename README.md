@@ -59,6 +59,3 @@ License
 -------
 
 BSD
-
-Grupo Netshoes
-------------------
