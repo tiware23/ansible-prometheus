@@ -7,6 +7,7 @@ services:
   - docker
 before_install:
   - sudo apt-get update
+  - sudo apt-get install libssl-dev
   - sudo -H python -m pip install ansible docker molecule testinfra
   - sudo python -m pip install six==1.12.0
 script:

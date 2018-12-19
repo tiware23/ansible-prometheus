@@ -2,11 +2,9 @@ import os
 
 import testinfra.utils.ansible_runner
 
-# testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(
-#     os.environ['MOLECULE_INVENTORY_FILE']).get_hosts('all')
-
 testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(
-    '.molecule/ansible_inventory').get_hosts('all')
+    os.environ['MOLECULE_INVENTORY_FILE']).get_hosts('all')
+
 
 def test_config(host):
     config = host.run("sudo grep 'localhost:9090' prometheus.yml |wc -l ")
