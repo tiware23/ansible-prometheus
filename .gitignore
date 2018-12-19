@@ -1,0 +1,33 @@
+# Vagrant
+**/.vagrant
+
+# Vim
+.*.s[a-w][a-z]
+*.un~
+Session.vim
+.netrwhist
+*~
+
+# OS X
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.Spotlight-V100
+.Trashes
+
+# Ansible
+**/*.retry
+
+# Terraform
+#**/*tfstate*
+#**/*.plan
+.kitchen
+.pytest_cache
+__pycache__
+default-centos-74.xml
+# Vagrant
+**/.vagrant
+# Molecule
+.yamllint
